@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 # this function returns a connection object if the connection to th mySQL server works
-def create_connection(host_name, user_name, user_password="6474584026Ab...", db_name):
+def create_connection(host_name, user_name, user_password, db_name):
     connection = mysql.connector.connect(
         host=host_name, user=user_name, passwd=user_password, database=db_name
     )
