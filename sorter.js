@@ -2,9 +2,11 @@ question = new Object();
 
 links = new Object();
 
-function addQuestions(dataLink){
+function addQuestions(){
 
-    for(i = 0; i < dataLink; i++){
+    for(i = 0; i < table.getDataCount(); i++){
+        var row = table.getRow(i).getData();
+        
         
     }
     questionList
@@ -36,10 +38,14 @@ function linkQuestions(questionList){
 function updateSubordinate(questionList){
     // Alter everything's subordinate variable
     for (i=0; i < questionList.length; i++){
-
+        table.updateRow(questionList[i].index, {
+            id:questionList[i].index, 
+            question:questionList[i].question, 
+            subordinate:questionList[i].subordinate
+        });
     }
 }
 
-questions = addQuestions("database");
+questions = addQuestions();
 questions = linkQuestions(questions);
 updateSubordinate(questions)
