@@ -1,15 +1,10 @@
-question = new Object();
-
-links = new Object();
-
 function addQuestions(){
-
-    for(i = 0; i < table.getDataCount(); i++){
-        var row = table.getRow(i).getData();
-        
-        
+    var question = {id:0, question:"none", likes:0, subordinate:-1};
+    var questionList = [];
+    for(i = 1; i < table.getDataCount()+1; i++){
+        question = table.getRow(i).getData();
+        questionList.push(question);
     }
-    questionList
     return questionList;
 }
 
@@ -18,34 +13,19 @@ function linkQuestions(questionList){
     greatestLinks = 0;
     greatestIndex = -1;
     for (i = 0; i < questionList.length; i++){
-        for (i=0; i < questionList.links.length; i++){
-            if (questionList.links.total > greatestLinks){
-                greatestLinks = questionList.links.total;
-                greatestIndex = questionList.links.index;
+        for (j=0; i < questionList[i].links.length; i++){
+            if (questionList[i].links.total > greatestLinks){
+                greatestLinks = questionList[i].links.total;
+                greatestIndex = questionList[i].links.index;
             }
-            if (questionList[greatest_index].likes == questionList.likes){
-                questionList.subordinate = greatestIndex;
+            if (questionList[greatest_index].likes == questionList[i].likes){
+                questionList[i].subordinate = greatestIndex;
             }
             else
-                questionList.subordinate = -1;
+                questionList[i].subordinate = -1;
         }
         greatestIndex = -1;
         greatestLinks = 0;
     }
     return questionList;
 }
-
-function updateSubordinate(questionList){
-    // Alter everything's subordinate variable
-    for (i=0; i < questionList.length; i++){
-        table.updateRow(questionList[i].index, {
-            id:questionList[i].index, 
-            question:questionList[i].question, 
-            subordinate:questionList[i].subordinate
-        });
-    }
-}
-
-questions = addQuestions();
-questions = linkQuestions(questions);
-updateSubordinate(questions)
