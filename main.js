@@ -9,13 +9,11 @@ var table = new Tabulator("#example-table", {
     {title:"Date Of Birth", field:"dob", hozAlign:"center"},
     ],
 });
-let tableName
-tableName = document.getElementById(tableName).value;
 
-function validateForm() {
-    var x = document.forms["tableNameForm"]["tableName"].value;
-    if (x == "") {
-      alert("Table name must be filled out");
-      return false;
-    }
-  }
+//able to get the table name created by the user and store it in a variable now
+const check = (e) => {
+    const form = new FormData(e.target);
+    const tableName = form.get("tableName");
+    console.log(tableName);
+    return false
+};

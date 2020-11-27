@@ -21,7 +21,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
   <h1 class="w3-margin w3-jumbo">Question Thing</h1>
 
-  <form class="w3-form w3-red w3-padding-large w3-large w3-margin-top" name="tableNameForm">
+  <form class="w3-form w3-red w3-padding-large w3-large w3-margin-top" onsubmit="return check(event)" name="tableNameForm" enctype="multipart/form-data" method="POST">
     <label for="table">Q&A Table Name:</label><br>
     <input type="text" name="tableName" id="tableId" value=""><br>
     <input type="submit" value="Submit">
