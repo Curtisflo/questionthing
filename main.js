@@ -3,6 +3,7 @@ var table = new Tabulator("#example-table", {
     dataTreeCollapseElement:"<i class='fas fa-minus-square'></i>",
     dataTreeStartExpanded:true,
     height:"311px",
+    selectable:1,
     columns:[
     {title:"Question", field:"question"},
     {title:"Likes", field:"likes", sorter:"number"},
@@ -27,10 +28,12 @@ function check(e) {
   return false;
 }
 
-setInterval(updates(), 1000);
+setInterval(updates, 1000);
 
 function updates(){
   questions = addQuestions();
+  var selectedRow = table.getSelectedRows();
+  //console.log(selectedRow)
   //questions = linkQuestions(questions);
   for(i = 0; i < questions.length; i++){
     if(questions[i].subordinate != -1){
@@ -38,12 +41,21 @@ function updates(){
       questions[i].total = 0;
       //nest subordinate question in superordinate question
       var row = table.getRow(questions[i].subordinate);
-      row.addTreeChild({id:questions.index, 
-        question:questions[i].question, 
-        likes:questions[i].likes, 
-        subordinate:questions[i].subordinate,
-        total:null
-      });
+      var setup = true
+      for(j = 0; j < row.getTreeChildren().length; j++){
+        if(row.getTreeChildren()[j].getData().id == questions[i].id){
+          setup = false;
+          break;
+        }
+      }
+      if(setup){
+        row.addTreeChild({id:questions[i].id, 
+          question:questions[i].question, 
+          likes:questions[i].likes, 
+          subordinate:questions[i].subordinate,
+          total:null
+        });
+      }
       table.updateRow(questions[i].subordinate).then(function(){
         //run code after row has been deleted
       })
